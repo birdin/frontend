@@ -44,4 +44,35 @@ describe('Valid data', () => {
     })
     expect(mockOnSubmit).toHaveBeenCalled()
   })
+
+  it("Sholdn have the same value", async () => {
+    render(<UserSignupPage />)
+    const email = screen.getByPlaceholderText('Email')
+    fireEvent.change(email, { target: { value: 'email2' } })
+    expect(email).toHaveValue('email2')
+  })
+})
+
+describe('Describe invalid data', () => {
+  it('invalid email address', async () => {
+    const mockOnSubmit = jest.fn()
+    render(<UserSignupPage onSubmit={mockOnSubmit} />)
+
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText('Email'), {
+        target: { value: 'helocom' }
+      })
+      fireEvent.change(screen.getByPlaceholderText('Password'), {
+        target: { value: 'password' }
+      })
+      fireEvent.change(screen.getByPlaceholderText('Confirm Password'), {
+        target: { value: 'password' }
+      })
+    })
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button"))
+    })
+    expect(mockOnSubmit).not.toHaveBeenCalled()
+  })
+
 })

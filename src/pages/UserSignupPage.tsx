@@ -1,22 +1,34 @@
 import React, {useState} from 'react'
+import useFormState from '../hooks/useFormState'
+import validateEmail from '../utils/validateEmail'
 
 const UserSignupPage = (props: any) => {
+  const emailState = useFormState({ type: 'email' })
+  const passwordState = useFormState({ type: 'password' })
+  const confirmPasswordState = useFormState({ type: 'password' })
 
   const onSubmitButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault()
-    props.onSubmit()
-    console.log('submit')
+    e.preventDefault()  
+    const password = passwordState.value
+    const confirmPassword = confirmPasswordState.value
+    const email = emailState.value
+    if(!validateEmail(email)) {
+      return;
+    }
+    if (password === confirmPassword) {
+      props.onSubmit()
+    }
   }
 
   return (
       <>
         <form>
           <label>Email</label>
-          <input type="email" placeholder="Email" />
+          <input placeholder="Email" {...emailState}/>
           <label>Password</label>
-          <input type="password" placeholder="Password" />
+          <input placeholder="Password" {...passwordState}/>
           <label>Confirm Password</label>
-          <input type="password" placeholder="Confirm Password" />
+          <input placeholder="Confirm Password" {...confirmPasswordState}/>
           <button type="submit" onClick={(e) => onSubmitButton(e)}>Sign Up</button>
         </form>
       </>  
