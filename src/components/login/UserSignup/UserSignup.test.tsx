@@ -1,24 +1,24 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-import UserSignupPage from './UserSignupPage'
+import UserSignup from './UserSignup'
 
 describe('UserSignupPage form elments', () => {
   it('should render the form', () => {
-    render(<UserSignupPage />)
+    render(<UserSignup />)
   })
 
   it('should render email input', () => {
-    render(<UserSignupPage />)
+    render(<UserSignup />)
     expect(screen.getByPlaceholderText('Email')).toBeInTheDocument()
   })
 
   it('should render password input', () => {
-    render(<UserSignupPage />)
+    render(<UserSignup />)
     expect(screen.getByPlaceholderText('Password')).toBeInTheDocument()
   })
 
   it('should render confirm password input', () => {
-    render(<UserSignupPage />)
+    render(<UserSignup />)
     expect(screen.getByPlaceholderText('Confirm Password')).toBeInTheDocument()
   })
 })
@@ -26,7 +26,7 @@ describe('UserSignupPage form elments', () => {
 describe('Valid data', () => {
   it('Calls on submit function', async () => {
     const mockOnSubmit = jest.fn()
-    render(<UserSignupPage onSubmit={mockOnSubmit} />)
+    render(<UserSignup onSubmit={mockOnSubmit} />)
 
     await act(async () => {
       fireEvent.change(screen.getByPlaceholderText('Email'), {
@@ -46,7 +46,7 @@ describe('Valid data', () => {
   })
 
   it("Sholdn have the same value", async () => {
-    render(<UserSignupPage />)
+    render(<UserSignup />)
     const email = screen.getByPlaceholderText('Email')
     fireEvent.change(email, { target: { value: 'email2' } })
     expect(email).toHaveValue('email2')
@@ -56,7 +56,7 @@ describe('Valid data', () => {
 describe('Describe invalid data', () => {
   it('invalid email address', async () => {
     const mockOnSubmit = jest.fn()
-    render(<UserSignupPage onSubmit={mockOnSubmit} />)
+    render(<UserSignup onSubmit={mockOnSubmit} />)
 
     await act(async () => {
       fireEvent.change(screen.getByPlaceholderText('Email'), {
