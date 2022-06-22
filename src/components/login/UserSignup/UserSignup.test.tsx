@@ -19,8 +19,10 @@ describe('UserSignupPage form elments', () => {
 
   it('should render confirm password input', () => {
     render(<UserSignup />)
-    expect(screen.getByPlaceholderText('Confirm Password')).toBeInTheDocument()
+    const passwordInput = screen.getByPlaceholderText('Password')
+    expect(passwordInput).toHaveClass('password')
   })
+
 })
 
 describe('Valid data', () => {
@@ -40,7 +42,7 @@ describe('Valid data', () => {
       })
     })
     await act(async () => {
-      fireEvent.click(screen.getByRole("button"))
+      fireEvent.click(screen.getAllByText('Sign Up')[0])
     })
     expect(mockOnSubmit).toHaveBeenCalled()
   })
@@ -70,7 +72,7 @@ describe('Describe invalid data', () => {
       })
     })
     await act(async () => {
-      fireEvent.click(screen.getByRole("button"))
+      fireEvent.click(screen.getAllByText('Sign Up')[0])
     })
     expect(mockOnSubmit).not.toHaveBeenCalled()
   })
