@@ -3,6 +3,8 @@ import useFormState from '../../../hooks/useFormState'
 import validateEmail from '../../../utils/validateEmail'
 import styled from 'styled-components'
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai'
+import ShowPassword from '../../form/ShowPassword'
+import { useToogle } from '../../../hooks/useToogle'
 
 const UserSignup = (props: any) => {
   const emailState = useFormState({ type: 'email' })
