@@ -55,4 +55,9 @@ export const Button = styled.button`
     background-color: #000;
     color: #fff;
   }
+  &:disabled{
+    background-color: #b2b2b2;
+    color: #fff;
+    cursor: not-allowed;
+  }
 `

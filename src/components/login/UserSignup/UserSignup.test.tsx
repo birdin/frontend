@@ -28,7 +28,7 @@ describe('UserSignupPage form elments', () => {
 describe('Valid data', () => {
   it('Calls on submit function', async () => {
     const mockOnSubmit = jest.fn()
-    render(<UserSignup onSubmit={mockOnSubmit} />)
+    render(<UserSignup actions={mockOnSubmit} />)
 
     await act(async () => {
       fireEvent.change(screen.getByPlaceholderText('Email'), {

@@ -7,11 +7,10 @@ import { useToogle } from '../../../hooks/useToogle'
 import { getTypeOfInput } from '../../../utils/inputUtils'
 import ShowPassword from '../../form/ShowPassword'
 
-const UserLogin = () => {
-
+const UserLogin = ({action=()=>{}, actions={}}) => {
     const emailState = useFormState({ type: 'email' })
     const passwordState = useFormState({ type: 'password' })
-
+    const [error, setError] = React.useState({"email": false, "password": false})
     const passwordToggle = useToogle(false)
 
     const onSubmitButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -21,9 +20,8 @@ const UserLogin = () => {
         if(!validateEmail(email)) {
             return;
         }
+        action();
     }
-
-
 
     return (
         <>
@@ -31,6 +29,7 @@ const UserLogin = () => {
             <Title>Welcome back!</Title>
             <FormGroup>
               <label>Email</label>
+              {error.email && <label>Invalid email</label>}
               <InputContainer>
                 <AiOutlineMail />
                 <Input placeholder="Email" {...emailState}/>
@@ -38,13 +37,14 @@ const UserLogin = () => {
             </FormGroup>
             <FormGroup>
               <label>Password</label>
+              {error.password && <label>Invalid password</label>}
               <InputContainer>
                 <AiOutlineLock />
                 <Input placeholder="Password" {...passwordState} {...getTypeOfInput(passwordToggle.state)}/>
                 <ShowPassword data-testid="change-password"  state={passwordToggle.state} toggle={passwordToggle.toggle} />
               </InputContainer>
             </FormGroup>
-            <Button type="submit" onClick={(e) => onSubmitButton(e)}>Sign Up</Button>
+            <Button type="submit" onClick={(e) => onSubmitButton(e)}>Sign in</Button>
           </Form>
         </>  
     )
